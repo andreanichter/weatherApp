@@ -14,7 +14,7 @@ const favoritesCityArray = []
 const autocompleteContainer = document.createElement("div");
 autocompleteContainer.classList.add("dropdown");
 
-// Create a dropdown (select) element   
+// Create a dropdown element   
 const favoritesContainer = document.createElement("div");
 favoritesContainer.classList.add("favorites-container");
 
@@ -39,7 +39,6 @@ function searchAutocomplete(suggestedName) {
     .then((response) => response.json())
     .then((data) => {
       if (Array.isArray(data)) {
-        //because data is no array, otherwise data.map is not a function error
         const suggestions = data.map((item) => ({
           name: item.name,
           country: item.country,
@@ -73,10 +72,9 @@ function inputFieldEventListener() {
   formInput.addEventListener("input", function () {
     const inputCity = formInput.value;
     if (inputCity) {
-      searchAutocomplete(inputCity); // Function call searchAutocomplete
-      //fetchWeather(inputCity); // Function call fetchWeather with the input city name
+      searchAutocomplete(inputCity); 
     } else {
-      autocompleteContainer.innerHTML = ""; //Clear the content
+      autocompleteContainer.innerHTML = "";
     }
   });
 }
@@ -89,11 +87,10 @@ function updateAutocompleteSuggestions(suggestions) {
     const suggestionItem = document.createElement("ul");
     suggestionItem.classList.add("dropdown-content");
     suggestionItem.textContent = `${suggestion.name}, ${suggestion.country}`;
-    console.log(suggestionItem);
 
     suggestionItem.addEventListener("click", function () {
       formInput.value = `${suggestion.name}, ${suggestion.country}`;
-      autocompleteContainer.innerHTML = ""; // Clear suggestions after selection
+      autocompleteContainer.innerHTML = "";
       fetchWeather(formInput.value); 
     }); 
     autocompleteContainer.appendChild(suggestionItem);
@@ -188,7 +185,6 @@ function addEventListenerFavBtn(data) {
         let favoritesCity = `${data.location.name}, ${data.location.country}`;
         if (!favoritesCityArray.includes(favoritesCity)) {
             favoritesCityArray.push(favoritesCity);
-            console.log(favoritesCityArray);
 
             // Clear the dropdown before adding the updated list
             dropdownFavorites.innerHTML = '';
@@ -225,7 +221,6 @@ function displayFavoritesCityWeather() {
       let selectedCity = dropdownFavorites.value;
       if (selectedCity) {
           clearWeatherDetails();
-          console.log(selectedCity)
           fetchWeather(selectedCity);
           dropdownFavorites.value = blankOption;
       }
@@ -325,7 +320,6 @@ function renderDetails(data, cardDiv) {
 // Convert degrees /Fahrenheit
 function convertDegrees(data, fBtn, cBtn, temp) {
   cBtn.addEventListener("click", (e) => {
-    console.log(e);
     cBtn.style.fontSize = "xx-large";
     fBtn.style.fontSize = "smaller";
     temp.innerHTML = null;
@@ -333,7 +327,6 @@ function convertDegrees(data, fBtn, cBtn, temp) {
   });
 
   fBtn.addEventListener("click", (e) => {
-    console.log(e);
     fBtn.style.fontSize = "xx-large";
     cBtn.style.fontSize = "smaller";
     temp.innerHTML = null;
