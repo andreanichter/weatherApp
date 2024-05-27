@@ -5,7 +5,6 @@ This project was created as a team project in the Web Development module of my d
 ## Tech Stack
 
 - JavaScript
-- HTML
 - CSS
   
 ## Firebase link
